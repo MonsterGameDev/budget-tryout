@@ -1,0 +1,13 @@
+.container {
+  height: 415;
+}
+
+.email-field, .submit-button, .signup-button, .password-field-container {
+  height: 45;
+}
+
+Image {
+  zoom: 1600%
+}
+
+

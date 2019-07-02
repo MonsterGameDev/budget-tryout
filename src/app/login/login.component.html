@@ -1,0 +1,59 @@
+<ScrollView width="100%" height="100%">
+  <GridLayout class="container" rows="auto, *">
+    <!-- LOGO -->
+    <Image
+      src="res://money"
+      stretch="none"
+      horizontalAlignment="center"
+    ></Image>
+    <!-- LOGINFORM -->
+    <StackLayout row="1" [formGroup]="loginForm">
+      <!-- EMAIL Field -->
+      <TextField
+        hint="Email ex: me@example.com"
+        autoCorrect="false"
+        keyboardType="email"
+        autocapitalizationType="none"
+        class="email-field"
+        formControlName="email"
+        [ngClass]="{ 'is-invalid': !!emailErrMsg }"
+      ></TextField>
+      <Label
+        [text]="emailErrMsg"
+        class="error-message"
+        [style.visibility]="!!emailErrMsg ? 'visible' : 'hidden'"
+      ></Label>
+      <!-- PASSWORD FIELD -->
+      <GridLayout
+        columns="*, auto"
+        class="password-field-container"
+        [ngClass]="{ 'is-invalid': !!passwordErrMsg }"
+      >
+        <TextField
+          hint="Password"
+          #password
+          secure="true"
+          class="password-field"
+          formControlName="password"
+        ></TextField>
+        <label
+          col="1"
+          [text]="showHideIcon"
+          class="fa show-hide-icon"
+          (tap)="showHidePassword()"
+        ></label>
+      </GridLayout>
+      <Label
+        [text]="passwordErrMsg"
+        class="error-message"
+        [style.visibility]="!!passwordErrMsg ? 'visible' : 'hidden'"
+      ></Label>
+      <!-- BUTTONS GROUP-->
+      <GridLayout columns="1*,1*" class="button-container">
+        <Button col="0" text="Log ind" class="submit-button" [isEnabled]="loginForm.valid" (tab)="onsubmit()"></Button>
+        <Button col="1" text="Ny Bruger" class="signup-button"></Button>
+      </GridLayout>
+    </StackLayout>
+  </GridLayout>
+</ScrollView>
+

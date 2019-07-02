@@ -1,0 +1,91 @@
+/* Add mobile styles for the component here.  */
+.container {
+  margin-left: 30;
+  margin-right: 30;
+  padding-bottom: 15;
+  background-color: rgb(255, 255, 255, 0.7);
+  border-radius: 4;
+}
+image {
+  margin-top: 20;
+  margin-bottom: 20;
+  border-width: 1;
+  border-color: black;
+  background-color: darkslategray;
+  border-radius: 50%;
+}
+
+.submit-button,
+.signup-button,
+.error-message,
+.email-field,
+.password-field-container {
+  margin-left: 16;
+  margin-right: 16;
+  margin-bottom: 10;
+  border-radius: 6;
+  padding-left: 10;
+}
+
+.error-message {
+  height: 18;
+}
+
+.email-field {
+  background-color: white;
+  height: 40;
+  padding-left: 10;
+  margin-top: 20;
+}
+
+.button-container {
+  margin-top: 20;
+}
+
+.submit-button {
+  background-color: darkorange;
+  color: white;
+  height: 40;
+}
+
+.signup-button {
+  background-color: chocolate;
+  height: 40;
+  color: white;
+}
+
+.error-message {
+  color: darkred;
+  font-size: 15;
+  padding-left: 10;
+  margin-top: -8;
+}
+
+.is-invalid {
+  border-width: 1;
+  border-style: solid;
+  border-color: darkred;
+}
+
+button:disabled {
+  background-color: gray;
+}
+
+.password-field-container {
+  border-radius: 4;
+  background-color: #ffffff;
+  height: 40;
+}
+
+.password-field {
+  color: #527796;
+  border-bottom-width: 1;
+  border-bottom-color: transparent;
+}
+
+.show-hide-icon {
+  padding-left: 10;
+  padding-right: 10;
+  vertical-align: center;
+  font-size: 17;
+}
