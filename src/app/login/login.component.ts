@@ -5,14 +5,13 @@ import {
     FormBuilder,
     FormGroup,
     Validators,
-    AbstractControl,
+    AbstractControl
 } from '@angular/forms';
-import { RouterExtensions } from  'nativescript-angular/router'
+import { RouterExtensions } from 'nativescript-angular/router';
 
-import { IUser, User } from './../shared/models/user.interface';
+import { User } from './../shared/models/user.interface';
 import { ValidateEmail } from './../shared/validators/email.validator';
 import { LoginService } from '../services/login.service';
-import { catchError } from 'rxjs/operators';
 
 @Component({
     selector: 'ns-login',
@@ -39,13 +38,14 @@ export class LoginComponent implements OnInit {
     private showPassword = false;
 
     isAuthenticating = false;
+    loginError: string;
 
     constructor(
         private page: Page,
         private fb: FormBuilder,
         private loginService: LoginService,
         private router: RouterExtensions
-        ) {}
+    ) {}
 
     ngOnInit() {
         this.setPageBackground();
@@ -60,18 +60,21 @@ export class LoginComponent implements OnInit {
 
     private initializeLoginForm() {
         this.loginForm = this.fb.group({
-            email: ['',{ 
-              validators: [Validators.required, ValidateEmail],
-              updateOn: 'blur'
-            }],
-            password: ['', [Validators.required]]}
-        );
+            email: [
+                '',
+                {
+                    validators: [Validators.required, ValidateEmail],
+                    updateOn: 'blur'
+                }
+            ],
+            password: ['', [Validators.required]]
+        });
     }
 
     private setupErrorMessages() {
         this.emailErrorMessages = {
             required: 'email skal udfyldes',
-            validateEmail: 'email ikke valid',
+            validateEmail: 'email ikke valid'
         };
         this.passwordErrorMessages = {
             required: 'password skal udfyldes'
@@ -97,14 +100,12 @@ export class LoginComponent implements OnInit {
 
     // Validity Checks...
     emailFieldValidityCheck(c: AbstractControl) {
-      this.emailErrMsg = null;
+        this.emailErrMsg = null;
         if (c.dirty && !!c.errors) {
-          
-          this.emailErrMsg = Object.keys(c.errors)
+            this.emailErrMsg = Object.keys(c.errors)
                 .map(key => this.emailErrorMessages[key] + ' ')
                 .toString();
         }
-        
     }
 
     passwordFieldValidityCheck(c: AbstractControl) {
@@ -130,21 +131,38 @@ export class LoginComponent implements OnInit {
         passField.secure = !passField.secure;
     }
 
-    onsubmit() {
-        debugger;
-         if(this.loginForm.valid){
+    submit() {
+        if (this.loginForm.valid) {
             this.isAuthenticating = true;
 
             const value = this.loginForm.value;
-            const loginRequest = new User(value.email, value.email, value.password);
-
-            this.loginService.login(loginRequest).subscribe(() => {
-                this.isAuthenticating = false;
-                this.router.navigate(['/home', { clearHistory: true}])
-            },
-            (err) => console.log('Error: ' + err)
+            const loginRequest = new User(
+                value.email,
+                value.email,
+                value.password
             );
 
-         }
+            this.loginService.login(loginRequest).then(() => {
+                this.isAuthenticating = false;
+                this.router.navigate(['/home', { clearHistory: true }]);
+            })
+            .catch((reason: any) => {
+                this.isAuthenticating = false;
+                this.loginError = reason;
+                console.dir(reason);
+            });
+            
+            // .then(
+            //     () => {
+            //         this.isAuthenticating = false;
+            //         this.router.navigate(['/home', { clearHistory: true }]);
+            //     },
+            //     err => {
+            //         console.log('Error: ' + err);
+            //         this.isAuthenticating = false;
+            //         this.loginError = err;
+            //     }
+            // );
+        }
     }
 }

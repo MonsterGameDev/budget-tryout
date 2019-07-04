@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { LoginExComponent } from './login-ex/login-ex.component';
 import { FabEasyComponent } from './fab-easy/fab-easy.component';
 import { LoginService } from './services/login.service';
+import { AuthGuardService } from './services/authguard.service';
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -32,7 +33,7 @@ import { LoginService } from './services/login.service';
         LoginExComponent,
         FabEasyComponent
     ],
-    providers: [LoginService],
+    providers: [LoginService, AuthGuardService],
     schemas: [NO_ERRORS_SCHEMA]
 })
 /*

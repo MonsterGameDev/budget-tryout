@@ -4,7 +4,7 @@ import { RouterExtensions} from 'nativescript-angular/router';
 import { LoginService } from './login.service';
 
 @Injectable()
-export class AuthService implements CanActivate{
+export class AuthGuardService implements CanActivate{
  
     canActivate() {
         if (this.loginService.isUserLoggedIn()) {
